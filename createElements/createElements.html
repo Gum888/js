@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Elements</title>
+    <style>
+        #playground {
+            margin-top: 15px;
+            border: 3px solid black;
+        }
+    </style>
+</head>
+<body>
+    <form novalidate>
+        <div>
+            <select name="tag">
+                <option>div</option>
+                <option>p</option>
+                <option>h1</option>
+                <option>h2</option>
+            </select>
+        </div>
+        <div>
+            <input type="text" name="class">
+        </div>
+        <div>
+            <textarea name="content"></textarea>
+        </div>
+        <input type="submit" value="Create element">
+    </form>
+    <div id="playground"></div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</body>
+</html>

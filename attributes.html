@@ -2,9 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Аттрибуты и DOM-свойства</title>
 </head>
 <body>
-$END$
+    <input type="text" data-id="1" data-number="5" value="Value" autocomplete="false">
+
+<script>
+    //Аттрибуты и DOM-свойства
+    var input = document.querySelector('input');
+    console.log("Получение data-* аттрибутов элемента:", input.dataset);
+
+    showValues(input);
+    alert("Измените содержимое поля ввода и переведите фокус ввода, чтобы сгенерировать событие change");
+
+    //Одноразовое событие при помощи JavaScript
+    input.onchange = function() {
+        showValues(this);
+        alert("Изменяем значение аттрибута value в коде");
+        this.setAttribute('value', 'new value');
+        showValues(this);
+        this.onchange = null;
+    };
+
+    function showValues(input) {
+        alert("Аттрибут value: " + input.getAttribute('value') + " свойство value: " + input.value);
+    }
+</script>
 </body>
 </html>

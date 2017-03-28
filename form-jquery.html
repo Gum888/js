@@ -2,122 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>jQuery</title>
 </head>
 <body>
-    <h1>А знаете ли вы Javascript</h1>
-    <form>
-        <input type="text" name="first_name" placeholder="Ваше имя" maxlength="20" autocomplete="false">
-        <input type="text" name="phone" placeholder="(XXX)XXX-XX-XX" title="Ваш телефон">
-        <input type="number" name="age" placeholder="Ваш возраст" min="10" max="90">
-        <p>Ваш пол</p>
-        <label><input type="radio" name="gender" value="male">Мужской</label>
-        <label><input type="radio" name="gender" value="female" checked>Женский</label>
-        <p>Оцените ваши знания Javascript</p>
-        <select name="knowledge">
-            <option value="0">Не знаю</option>
-            <option value="1">Слышал</option>
-            <option value="2">Немного знаю</option>
-            <option value="3">Знаю</option>
-            <option value="4">Работаю</option>
-        </select>
-        <p>Что вы знаете?</p>
-        <label><input type="checkbox" name="jquery">jQuery</label>
-        <label><input type="checkbox" name="bootstrap">Bootstrap</label>
-        <input type="submit" value="Submit data">
-    </form>
-    <p id="errors"></p>
+
+    <div class="first"></div>
+
+    <!--Локальное подключение jquery-->
+    <script src="jquery-3.2.0.min.js"></script>
+
+    <!--Подключение через CDN-->
+    <!--<script src="https://code.jquery.com/jquery-3.2.1.min.js"-->
+            <!--integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="-->
+            <!--crossorigin="anonymous"></script>-->
 
     <script>
-        var errors = document.getElementById('errors');
-        var form = document.forms[0];
-        form.onsubmit = function(e) {
-            e.preventDefault();
-            if (validateForm())
-                showError("Форма удачно отправлена", true);
-        };
+        $.noConflict();
+        jQuery( document ).ready(function( $ ) {
+            var $div = $('div');
+            $div.height('300').width('50%').css('background-color', 'yellow');
 
-        function validateForm() {
-            if (!validateTextInput(form.elements.first_name))
-                return false;
-            if (!validateNumberInput(form.elements.age))
-                return false;
-            if (!validateCheckbox(form.elements.gender))
-                return false;
-            if(!validateTelephone(form.elements.phone))
-                return false;
+            var i = 0;
+            var $button = $('<button>Hide div</button>').click(function() {
+                $div.slideToggle(2000);
+                i = 1 - i;
+                changeText(this, i);
+            }).css('margin-bottom', '20px');
 
-            return true;
-        }
+            $div.before($button).after('<hr>');
 
-        function showError(text, success) {
-            if (success)
-                errors.innerHTML = "<span style='color: green'>" + text + "</span>";
-            else
-                errors.innerHTML = "<span style='color: red'>" + text + "</span>";
-        }
-
-        function validateTextInput(input) {
-            input.value = input.value.trim();
-            var value = input.value;
-            if (!value) {
-                showError("Это обязательное поле", false);
-                return false;
+            function changeText(button, i) {
+                if (i)
+                    $(button).text('Show div');
+                else
+                    $(button).text('Hide div');
             }
-            else if (value.length < 2) {
-                showError("Длина введенного значения должна быть больше одного символа", false);
-                return false;
-            }
-            else if (value.length > 20) {
-                showError("Длина введенного значения должна быть меньше 21 символа", false);
-                return false;
-            }
-            else
-                return true;
-        }
-
-        function validateNumberInput(input) {
-            input.value = input.value.trim();
-            var value = input.value;
-            if (!value) {
-                showError("Это обязательное поле", false);
-                return false;
-            }
-            else if (isNaN(+value)) {
-                showError("Вы должны ввести число", false);
-                return false;
-            }
-            else if (value < 10 || value > 90) {
-                showError("Значение должно быть в пределах 10..90", false);
-                return false;
-            }
-            else
-                return true;
-        }
-
-        function validateCheckbox(input) {
-            var value = input.value;
-            if (value !== 'male' && value !== 'female') {
-                showError("Пожалуйста выберите значение", false);
-                return false;
-            }
-            else
-                return true;
-
-        }
-
-        function validateTelephone(input) {
-            var value = input.value;
-            if (!/^\(0\d{2}\)\s?\d{3}-\d{2}-\d{2}$/.test(value)) {
-                showError("Введите телефон в формате (XXX)XXX-XX-XX", false);
-                return false;
-            }
-            else
-                return true;
-        }
-
-
-
+        });
     </script>
 </body>
 </html>

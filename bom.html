@@ -2,9 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>BOM</title>
 </head>
 <body>
-$END$
+
+<script>
+    /*
+    Открыть новое окно размером 100х100, через 2 секунды подвинуть на 100 пикселей по горизонтали,
+    изменить размер на 300х300, через 6 секунд закрыть новое окно.
+
+    В консоли основного окна будет информация об операционной системе и браузере
+     */
+
+    var w = window.open('http://learn.javascript.ru/', "_blank", 100, 100);
+
+    setTimeout(function() {
+        w.moveBy(100, 0);
+        w.resizeTo(500, 500);
+    }, 2000);
+
+    setTimeout(function() {
+        w.close();
+    }, 6000);
+
+    console.log("Информация о браузере: " + navigator.userAgent);
+    console.log("Информация об операционной системе: " + navigator.platform);
+</script>
 </body>
 </html>
