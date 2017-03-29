@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+//    var xhr = new XMLHttpRequest();
+//    xhr.open('GET', 'data.json');
+//    xhr.send();
+//
+//    xhr.onreadystatechange = function() {
+//        if (xhr.readyState !== 4)
+//            return;
+//
+//        if(xhr.status === 200) {
+//            console.log(xhr.getAllResponseHeaders());
+//            console.log(xhr.responseText);
+//        }
+//        else {
+//            console.log(xhr.status + " " + xhr.statusText);
+//        }
+//    }
+
+</script>
+<script>
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'http://api.openweathermap.org/data/2.5/weather?APPID={Ваш APPID, зарегистрируйтесь и бесплатно получите}&q=Zaporizhya&units=metric&lang=ua');
+        xhr.send();
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState !== 4)
+                return;
+
+            if(xhr.status === 200) {
+                try {
+                    var weather = JSON.parse(xhr.responseText);
+                    var info = weather.name;
+                    info += " температура: " + weather.main.temp;
+                    info += " погода: " + weather.weather[0].description;
+                    info += "<br><img src='http://openweathermap.org/img/w/" + weather.weather[0].icon + ".png' alt=''>";
+                    document.write(info);
+                 }
+                catch (e) {
+                    console.log("Wrong JSON!");
+                }
+             }
+            else {
+                console.log(xhr.status + " " + xhr.statusText);
+            }
+        }
+</script>
+</body>
+</html>
